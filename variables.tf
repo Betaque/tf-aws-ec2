@@ -1,5 +1,8 @@
-variable "public_subnet_id" {}
-variable "private_subnet_id" {}
+variable "subnet_ids" {
+  description = "The VPC Subnet ID's to launch instances"
+  type = list(string)
+}
+
 variable "aws_instance_type" {
   description = "The type of EC2 instance to launch, e.g., t2.micro, m5.large, etc."
   type        = string
@@ -98,4 +101,9 @@ variable "aws_ec2_instance_count" {
 variable "aws_ec2_instance_name" {
   description = "The name of the instances to be created."
   type        = list
+}
+
+variable "associate_public_ip_address" {
+  description = "Whether to associate a public IP address with an instance in a VPC"
+  type        = bool
 }

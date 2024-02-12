@@ -57,10 +57,11 @@ Add the EC2 Module to your main.tf file and fill in the variables in variables.t
 module "ec2" {
   source                                  = "git::https://github.com/Betaque/tf-aws-ec2.git//?ref=feat/generic-ec2" # Path of the Module
   aws_instance_type                       = "t2.micro"
-  public_subnet_id                        = <YOUR_PUBLIC_SUBNET_ID>
-  private_subnet_id                       = <YOUR_PRIVATE_SUBNET_ID>
+  subnet_ids                              = ["<SUBNET_ID_1>" , "<SUBNET_ID_2>"] #List of subnet IDs where the EC2 instances will be launched,  You can also provide a single subnet ID for all instances.
   aws_ami                                 = "ami-0c7217cdde317cfec"
   vpc_id                                  = <YOUR_VPC_ID>
+  aws_ec2_instance_count                  = 2    # The number of ec2 instances you want to create 
+  aws_ec2_instance_name                   = ["test-1", "test-2"] # List of names for the EC2 instances.
   aws_ec2_ingress_rules                   = [3306, 22]
   aws_ec2_ingress_cidr_blocks             = ["0.0.0.0/0"]
   aws_ec2_ingress_rules_from_port         = [3306, 22]
@@ -75,9 +76,8 @@ module "ec2" {
   local_private_key_file_name             = "tfkey" 
   private_key_algorithm                   = "RSA"
   private_key_rsa_bits                    = 4096
-  aws_ec2_instance_count                  = 2
-  aws_ec2_instance_name                   = ["test-1", "test-2"] 
   aws_ec2_sg_name                         = "test-sg" 
+  associate_public_ip_address             = true 
 }
 ```
 
